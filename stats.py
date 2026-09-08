@@ -1,16 +1,17 @@
 from winrate import calculate_winrate
 
+
 def get_result(data):
     wins = 0
-    loses = 0
+    losses = 0
 
     for match in data:
-        if match['Результат'] == 'Победа':
+        if match['result'] == 'Победа':
             wins += 1
         else:
-            loses += 1
+            losses += 1
 
-    return wins, loses
+    return wins, losses
 
 
 def get_average_kda(data):
@@ -19,9 +20,9 @@ def get_average_kda(data):
     assists = 0
 
     for match in data:
-        kills += match['Убийства']
-        deaths += match['Смерти']
-        assists += match['Помощи']
+        kills += match['kills']
+        deaths += match['deaths']
+        assists += match['assists']
 
     games = len(data)
 
@@ -33,16 +34,16 @@ def get_average_kda(data):
 
 
 def get_recent_stats(data):
-    wins, loses = get_result(data)
+    wins, losses = get_result(data)
 
-    games = wins + loses
+    games = wins + losses
     winrate = calculate_winrate(wins, games)
 
     avg_kills, avg_deaths, avg_assists = get_average_kda(data)
 
     return (
         wins,
-        loses,
+        losses,
         winrate,
         avg_kills,
         avg_deaths,
@@ -53,7 +54,7 @@ def get_recent_stats(data):
 def print_recent_stats(matches):
     (
         wins,
-        loses,
+        losses,
         winrate,
         avg_kills,
         avg_deaths,
@@ -63,11 +64,10 @@ def print_recent_stats(matches):
     print(f'===== ИТОГИ ПОСЛЕДНИХ {len(matches)} МАТЧЕЙ =====')
 
     print(f'Побед: {wins}')
-    print(f'Поражений: {loses}')
+    print(f'Поражений: {losses}')
     print(f'Процент побед: {winrate} %')
     print()
 
     print(f'Средние убийства: {avg_kills}')
     print(f'Средние смерти: {avg_deaths}')
     print(f'Средние помощи: {avg_assists}')
-

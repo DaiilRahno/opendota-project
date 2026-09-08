@@ -1,6 +1,7 @@
 from api import make_request
 from winrate import calculate_winrate
 
+
 def get_heroes():
     return make_request(
         'https://api.opendota.com/api/heroes'
@@ -29,13 +30,13 @@ def filter_hero(list_heroes_player):
 
 def prepare_hero_data(hero, dota_heroes):
     return {
-        'Герой': get_hero_name(
+        'hero_name': get_hero_name(
             hero['hero_id'],
             dota_heroes
         ),
-        'Игр': hero['games'],
-        'Побед': hero['win'],
-        'Процент побед': calculate_winrate(
+        'games': hero['games'],
+        'wins': hero['win'],
+        'winrate': calculate_winrate(
             hero['win'],
             hero['games']
         )
@@ -55,10 +56,10 @@ def get_player_heroes(account_id):
 
 
 def print_hero(hero):
-    print(f"Герой: {hero['Герой']}")
-    print(f"Кол-во игр: {hero['Игр']}")
-    print(f"Кол-во побед: {hero['Побед']}")
-    print(f"Процент побед: {hero['Процент побед']}")
+    print(f"Герой: {hero['hero_name']}")
+    print(f"Кол-во игр: {hero['games']}")
+    print(f"Кол-во побед: {hero['wins']}")
+    print(f"Процент побед: {hero['winrate']}")
     print()
 
 
@@ -85,12 +86,12 @@ def get_best_and_worst_heroes(account_id):
 
     best_hero = max(
         prepared_heroes,
-        key=lambda hero: hero['Процент побед']
+        key=lambda hero: hero['winrate']
     )
 
     worst_hero = min(
         prepared_heroes,
-        key=lambda hero: hero['Процент побед']
+        key=lambda hero: hero['winrate']
     )
 
     return best_hero, worst_hero

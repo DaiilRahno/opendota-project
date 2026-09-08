@@ -3,6 +3,7 @@ from heroes import get_hero_name, get_heroes
 
 RANKED_ALL_PICK = 22
 
+
 def get_recent_matches(account_id):
     return make_request(
         f'https://api.opendota.com/api/players/{account_id}/matches'
@@ -13,7 +14,7 @@ def get_last_matches(matches, count):
     return matches[:count]
 
 
-def get_filter_matches(matches, game_mode= RANKED_ALL_PICK):
+def get_filter_matches(matches, game_mode=RANKED_ALL_PICK):
     return [
         match
         for match in matches
@@ -44,16 +45,16 @@ def calculate_kda(kills, deaths, assists):
 
 def prepare_match(match, dota_heroes):
     return {
-        'ID игры': match['match_id'],
-        'Результат': get_matches_result(match),
-        'Герой': get_hero_name(
+        'match_id': match['match_id'],
+        'result': get_matches_result(match),
+        'hero_name': get_hero_name(
             match['hero_id'],
             dota_heroes
         ),
-        'Убийства': match['kills'],
-        'Смерти': match['deaths'],
-        'Помощи': match['assists'],
-        'КДА': calculate_kda(
+        'kills': match['kills'],
+        'deaths': match['deaths'],
+        'assists': match['assists'],
+        'kda': calculate_kda(
             match['kills'],
             match['deaths'],
             match['assists']
@@ -64,7 +65,6 @@ def prepare_match(match, dota_heroes):
 def get_player_recent_matches(account_id, count):
     dota_heroes = get_heroes()
     match_list = get_recent_matches(account_id)
-
 
     filtered_matches = get_filter_matches(match_list)
     last_matches = get_last_matches(filtered_matches, count)
@@ -88,26 +88,26 @@ def print_recent_matches(matches):
 def get_best_and_worst_matches(matches):
     best_match = max(
         matches,
-        key=lambda match: match['КДА']
+        key=lambda match: match['kda']
     )
 
     worst_match = min(
         matches,
-        key=lambda match: match['КДА']
+        key=lambda match: match['kda']
     )
 
     return best_match, worst_match
 
 
 def print_match(match):
-    kills = match['Убийства']
-    deaths = match['Смерти']
-    assists = match['Помощи']
-    kda = match['КДА']
+    kills = match['kills']
+    deaths = match['deaths']
+    assists = match['assists']
+    kda = match['kda']
 
-    print(f"ID игры: {match['ID игры']}")
-    print(f"Результат: {match['Результат']}")
-    print(f"Герой: {match['Герой']}")
+    print(f"ID игры: {match['match_id']}")
+    print(f"Результат: {match['result']}")
+    print(f"Герой: {match['hero_name']}")
     print(f'КДА: {kills}/{deaths}/{assists}')
     print(f'КДА Рейтинг: {round(kda, 2)}')
     print()
