@@ -1,0 +1,42 @@
+Dota Stats project
+
+Project root:
+- main.py                 # Uvicorn entry point: from backend.app import app
+- requirements.txt
+- README.md
+- BACKEND_TESTING_GUIDE.md
+
+Backend business logic:
+- backend/__init__.py
+- backend/app.py           # FastAPI app, middleware and router registration
+- backend/api.py           # OpenDota HTTP requests
+- backend/errors.py        # Mapping requests exceptions to FastAPI HTTP errors
+- backend/heroes.py
+- backend/matches.py
+- backend/player.py
+- backend/schemas.py
+- backend/stats.py
+- backend/winrate.py
+
+HTTP routers:
+- routers/__init__.py
+- routers/player.py
+- routers/winrate.py
+- routers/heroes.py
+- routers/matches.py
+- routers/summary.py
+
+Frontend:
+- frontend/index.html
+- frontend/style.css
+- frontend/script.js
+
+Tests:
+- tests/test_player.py
+- tests/test_winrate.py
+- tests/test_heroes.py
+- tests/test_matches.py
+- tests/test_stats.py
+- tests/test_endpoint.py
+
+Do not add .venv, __pycache__ or .pytest_cache to the project archive/repository.

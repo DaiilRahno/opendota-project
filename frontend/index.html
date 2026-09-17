@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dota Stats</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="header-inner">
+
+        <a href="#" class="brand">
+            <div class="brand-logo">
+                <span></span>
+                <span></span>
+            </div>
+
+            <div>
+                <div class="brand-title">Dota Stats</div>
+                <div class="brand-subtitle">Track. Analyse. Improve.</div>
+            </div>
+        </a>
+
+
+        <div class="header-search">
+
+            <div class="search-input-wrap">
+                <input
+                    id="account-id"
+                    type="text"
+                    placeholder="Enter Steam Account ID"
+                >
+
+                <span class="search-icon">⌕</span>
+            </div>
+            <select id="last-matches-value">
+                <option value="7">7 матчей</option>
+                <option value="20">20 матчей</option>
+                <option value="50">50 матчей</option>
+                <option value="80">80 матчей</option>
+            </select>
+
+            <button id="search-button">
+                Search
+            </button>
+
+        </div>
+
+
+        <nav class="header-nav">
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#heroes" class="nav-link">Heroes</a>
+            <a href="#matches" class="nav-link">Matches</a>
+            <a href="https://github.com/" target="_blank" class="nav-link">
+                GitHub
+            </a>
+        </nav>
+
+    </div>
+</header>
+
+
+<main id="home" class="page">
+
+    <section class="hero-intro">
+
+        <div class="intro-copy">
+
+            <span class="eyebrow">
+                Dota 2 analytics
+            </span>
+
+            <h1>
+                Player Statistics
+            </h1>
+
+            <p>
+                Discover your performance,
+                track your progress
+                and improve your game.
+            </p>
+
+        </div>
+
+
+        <div
+            id="player-overview"
+            class="player-overview empty-state"
+        >
+
+            <div>
+                <h2>
+                    Find a player
+                </h2>
+
+                <p>
+                    Enter a Steam Account ID above
+                    to load statistics.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="heroes" class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    Favourite picks
+                </span>
+
+                <h2>
+                    Top Heroes
+                </h2>
+
+            </div>
+
+
+            <div class="carousel-actions">
+
+                <button
+                    id="heroes-prev"
+                    class="icon-button"
+                >
+                    ‹
+                </button>
+
+                <button
+                    id="heroes-next"
+                    class="icon-button"
+                >
+                    ›
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="hero-carousel-shell">
+
+            <div
+                id="heroes-track"
+                class="heroes-track"
+            >
+                <div class="loading-card">
+                    Hero cards will appear here
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="matches" class="content-section">
+
+        <div class="section-heading">
+
+            <div>
+
+                <span class="eyebrow">
+                    Latest games
+                </span>
+
+                <h2>
+                    Recent Matches
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="matches-list"
+            class="matches-panel"
+        >
+            <div class="loading-card">
+                Recent matches will appear here
+            </div>
+        </div>
+        <button id="show-more-matches">Show more</button>
+
+    </section>
+
+
+    <section class="content-section highlights">
+
+        <div
+            id="best-match"
+            class="highlight-card best"
+        >
+            <div class="loading-card">
+                Best match
+            </div>
+        </div>
+
+
+        <div
+            id="worst-match"
+            class="highlight-card worst"
+        >
+            <div class="loading-card">
+                Worst match
+            </div>
+        </div>
+
+    </section>
+
+
+    <div
+        id="status-message"
+        class="status-message"
+        hidden
+    ></div>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="footer-inner">
+
+        <div>
+            Dota Stats
+            <span>© 2026</span>
+            <span>Educational project</span>
+        </div>
+
+        <div>
+            Made with
+            <span class="heart">♥</span>
+            for better players
+        </div>
+
+    </div>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
