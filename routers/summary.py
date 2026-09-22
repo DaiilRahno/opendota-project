@@ -3,6 +3,7 @@ from concurrent.futures import ThreadPoolExecutor
 from fastapi import APIRouter, Path, Query
 from requests.exceptions import ConnectionError, HTTPError, Timeout
 
+from backend.cache import get_cached_summary, set_cached_summary
 from backend.errors import handle_error
 from backend.heroes import get_player_heroes
 from backend.matches import get_player_recent_matches
@@ -37,18 +38,23 @@ def load_summary_data(account_id,count):
     "/summary/{account_id}",
     response_model=SummaryResponse,
 )
-def summary(account_id: int = Path(ge=1), count:int = Query(7,ge=1,le=100)):
+def summary(account_id: int = Path(ge=1), count: int = Query(7, ge=1, le=100)):
     try:
+        cached = get_cached_summary(account_id, count)
+
+        if cached is not None:
+            return cached
+
         (
             player_data,
             winrate_data,
             heroes,
             matches,
-        ) = load_summary_data(account_id,count)
+        ) = load_summary_data(account_id, count)
 
         best_match, worst_match = get_best_and_worst_matches(matches)
 
-        return {
+        summary_data = {
             "player": prepare_player(player_data),
             "winrate": prepare_winrate(winrate_data),
             "heroes": heroes,
@@ -57,6 +63,10 @@ def summary(account_id: int = Path(ge=1), count:int = Query(7,ge=1,le=100)):
             "best_match": best_match,
             "worst_match": worst_match,
         }
+
+        set_cached_summary(account_id, count, summary_data)
+
+        return summary_data
 
     except (HTTPError, Timeout, ConnectionError) as error:
         handle_error(error)

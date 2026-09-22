@@ -31,7 +31,7 @@ const matches_value =
 const showMoreMatchButton = document.getElementById("show-more-matches")
 
 
-const API_URL = "http://127.0.0.1:8000"
+const API_URL = ""
 
 
 const HERO_ALIASES = {

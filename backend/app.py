@@ -6,11 +6,16 @@ from routers.matches import router as matches_router
 from routers.player import router as player_router
 from routers.summary import router as summary_router
 from routers.winrate import router as winrate_router
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+
+
 
 app = FastAPI(
     title="Dota Stats API",
     version="1.0.0",
 )
+app.mount("/static", StaticFiles(directory="frontend"), name="static")
 
 app.add_middleware(
     CORSMiddleware,
@@ -23,7 +28,7 @@ app.add_middleware(
 
 @app.get("/")
 def root():
-    return {"message": "OpenDota API is running"}
+    return FileResponse("frontend/index.html")
 
 
 app.include_router(player_router)
